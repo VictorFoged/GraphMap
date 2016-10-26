@@ -8,6 +8,7 @@ namespace GraphMap
 {
     class Graph
     {
+
         List<Node> nodeList = new List<Node>();
 
         public void addUnDir(Node a, Node b, int cost)
@@ -43,6 +44,58 @@ namespace GraphMap
                 node.printNeigbors();
             }
         }
+
+
+        public void findPath(Node start, Node end)
+        {
+            int maxint = int.MaxValue;
+            Dictionary<Node, int> distances = new Dictionary<Node, int>();
+            Dictionary<Node, Node> previous = new Dictionary<Node, Node>();
+            Node[] nodes = new Node[nodeList.Count];
+            Node smallest;
+            List<Node> path = new List<Node>();
+            
+
+            foreach (Node node in nodeList)
+            {
+                if(node == start)
+                {
+                    distances.Add(node, 0);
+                }
+                else
+                {
+                    distances.Add(node, maxint);
+                }
+            }
+            while(nodes.Length > 0)
+            {
+                nodes = sort(distances);
+                smallest = nodes[0];
+                if(smallest == end)
+                {
+
+                }
+            }
+
+
+        }
+
+        public Node[] sort(Dictionary<Node, int> distances)
+        {
+            Node[] keys = new Node[distances.Count];
+            int[] value = new int[distances.Count];
+            int i = 0;
+            foreach (KeyValuePair<Node, int> entry in distances)
+            {
+                keys[i] = entry.Key;
+                value[i] = entry.Value;
+                i = i + 1;
+            }
+            Array.Sort(keys, value);
+            
+            return keys;
+        }
+
 
     }
 }
