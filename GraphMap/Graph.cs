@@ -51,7 +51,8 @@ namespace GraphMap
             Dictionary<Node, float> distances = new Dictionary<Node, float>();
             Dictionary<Node, Node> previous = new Dictionary<Node, Node>();
             SimplePriorityQueue<Node> nodes = new SimplePriorityQueue<Node>();
-            
+            Node smallest;
+            List<Node> path = new List<Node>();
 
             foreach(Node vertex in nodeList)
             {
@@ -59,6 +60,29 @@ namespace GraphMap
                 {
                     distances[vertex] = 0;
                     nodes.Enqueue(vertex, 0);
+                }
+                else
+                {
+                    distances[vertex] = maxint;
+                    nodes.Enqueue(vertex, maxint);
+                }
+                previous[vertex] = null;
+            }
+            while (nodes.Count > 0)
+            {
+                smallest = nodes.Dequeue();
+                if(smallest == finish)
+                {
+                    while (previous[smallest] != start)
+                    {
+                        path.Add(smallest);
+                        smallest = previous[smallest];
+                    }
+                    return path;
+                }
+                if(distances[smallest] == maxint)
+                {
+                    break;
                 }
             }
         }
