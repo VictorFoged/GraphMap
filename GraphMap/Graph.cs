@@ -45,8 +45,31 @@ namespace GraphMap
             }
         }
 
+        public List<Node> findPath(Node start, Node finish)
+        {
+            int maxint = int.MaxValue;
+            Dictionary<Node, float> distances = new Dictionary<Node, float>();
+            Dictionary<Node, Node> previous = new Dictionary<Node, Node>();
+            SimplePriorityQueue<Node> nodes = new SimplePriorityQueue<Node>();
+            
 
-        public void findPath(Node start, Node end)
+            foreach(Node vertex in nodeList)
+            {
+                if (vertex == start)
+                {
+                    distances[vertex] = 0;
+                    nodes.Enqueue(vertex, 0);
+                }
+            }
+        }
+
+
+
+
+
+
+        /*
+        public List<Node> findPath(Node start, Node end)
         {
             int maxint = int.MaxValue;
             Dictionary<Node, int> distances = new Dictionary<Node, int>();
@@ -73,12 +96,22 @@ namespace GraphMap
                 smallest = nodes[0];
                 if(smallest == end)
                 {
-
+                    foreach (KeyValuePair<Node,Node> entry in previous)
+                    {
+                        path.Add(smallest);
+                        smallest = previous[smallest];
+                    }
+                    return path;
+                }
+                if (distances[smallest] == maxint)
+                {
+                    break;
                 }
             }
 
 
         }
+        */
 
         public Node[] sort(Dictionary<Node, int> distances)
         {
